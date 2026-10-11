@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"housekeeper/internal/cleaner"
+	"housekeeper/internal/logger"
 	"os"
 )
 
@@ -51,7 +52,7 @@ func processDuplicateGroups(dedup bool, fileHashMap map[string][]string) []strin
 	return duplicateFilesToDelete
 }
 
-func executeDedupRemovals(dedup bool, duplicateFilesToDelete []string) {
+func executeDedupRemovals(dedup bool, duplicateFilesToDelete []string, targetPath string) {
 	if !dedup || len(duplicateFilesToDelete) == 0 {
 		return
 	}
@@ -61,6 +62,8 @@ func executeDedupRemovals(dedup bool, duplicateFilesToDelete []string) {
 			fmt.Printf("[ERRO] Falha ao remover duplicado %s: %v\n", file, err)
 		} else {
 			fmt.Printf("[REMOVIDO DUPLICADO] %s\n", file)
+			// Registra a ação no log (respeitando a flag --no-log via variável global noLog)
+			_ = logger.LogAction(targetPath, fmt.Sprintf("REMOVED_DUPLICATE: %s", file), noLog)
 		}
 	}
 }

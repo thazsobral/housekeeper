@@ -3,8 +3,10 @@ package cmd
 import (
 	"bufio"
 	"fmt"
+	"housekeeper/internal/logger"
 	"housekeeper/internal/scanner"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -89,7 +91,25 @@ func runOrganize(cmd *cobra.Command, args []string) {
 		}
 	}
 
-	executeMovePlans(movePlans)
+	executeMovePlans(movePlans, targetPath)
 
 	fmt.Println("\nOrganização concluída com sucesso!")
+}
+
+func executeMovePlans(plans []FileMovePlan, targetPath string) {
+	fmt.Println("\nMovendo arquivos...")
+	for _, plan := range plans {
+		destDir := filepath.Dir(plan.DestPath)
+		if err := os.MkdirAll(destDir, 0755); err != nil {
+			fmt.Printf("[ERRO] Falha ao criar diretório %s: %v\n", destDir, err)
+			continue
+		}
+
+		if err := os.Rename(plan.SourcePath, plan.DestPath); err != nil {
+			fmt.Printf("[ERRO] Falha ao mover %s: %v\n", filepath.Base(plan.SourcePath), err)
+		} else {
+			fmt.Printf("[MOVIDO] %s -> %s/\n", filepath.Base(plan.SourcePath), plan.Extension)
+			_ = logger.LogAction(targetPath, fmt.Sprintf("MOVED: %s -> %s", plan.SourcePath, plan.DestPath), noLog)
+		}
+	}
 }

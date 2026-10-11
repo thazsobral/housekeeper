@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"housekeeper/internal/cleaner"
+	"housekeeper/internal/logger"
 	"os"
 	"sort"
 )
@@ -19,7 +20,7 @@ func processFolderScan(path string, info os.FileInfo, foldersToDelete *[]string)
 	}
 }
 
-func executeFolderRemovals(cleanFolder bool, foldersToDelete []string) {
+func executeFolderRemovals(cleanFolder bool, foldersToDelete []string, targetPath string) {
 	if !cleanFolder || len(foldersToDelete) == 0 {
 		return
 	}
@@ -35,6 +36,8 @@ func executeFolderRemovals(cleanFolder bool, foldersToDelete []string) {
 				fmt.Printf("[ERRO] Falha ao remover pasta %s: %v\n", folder, err)
 			} else {
 				fmt.Printf("[REMOVIDO] %s\n", folder)
+				// Registra a ação no log (respeitando a flag --no-log)
+				_ = logger.LogAction(targetPath, fmt.Sprintf("REMOVED_FOLDER: %s", folder), noLog)
 			}
 		}
 	}

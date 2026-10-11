@@ -79,9 +79,9 @@ func runClean(cmd *cobra.Command, args []string) {
 		}
 	}
 
-	executeFileRemovals(cleanFile, filesToDelete)
-	executeDedupRemovals(dedup, duplicateFilesToDelete)
-	executeFolderRemovals(cleanFolder, foldersToDelete)
+	executeFileRemovals(cleanFile, filesToDelete, targetPath)
+	executeDedupRemovals(dedup, duplicateFilesToDelete, targetPath)
+	executeFolderRemovals(cleanFolder, foldersToDelete, targetPath)
 
 	fmt.Println("\nLimpeza concluída com sucesso!")
 }

@@ -13,14 +13,12 @@ func collectDateMovePlan(targetPath string, path string, info os.FileInfo, plans
 		return
 	}
 
-	// Processa apenas arquivos na raiz imediata da busca
 	rel, err := filepath.Rel(targetPath, path)
 	if err != nil || strings.Contains(rel, string(filepath.Separator)) {
 		return
 	}
 
 	folder := organizer.GetDateFolder(info.ModTime())
-
 	destDir := filepath.Join(targetPath, folder)
 	destPath := filepath.Join(destDir, info.Name())
 
@@ -33,7 +31,7 @@ func collectDateMovePlan(targetPath string, path string, info os.FileInfo, plans
 	*plans = append(*plans, FileMovePlan{
 		SourcePath: path,
 		DestPath:   destPath,
-		Extension:  folder, // Reaproveita o campo para log
+		Extension:  folder,
 	})
 
 	modTimeStr := info.ModTime().Format("02/01/2006 15:04:05")

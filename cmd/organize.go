@@ -24,5 +24,6 @@ func init() {
 	organizeCmd.Flags().StringVar(&orgName, "name", "", "Organiza por critério de nome (ex: alphabet)")
 	organizeCmd.Flags().StringVar(&orgDate, "date", "", "Organiza por critério de data (ex: createat)")
 	organizeCmd.Flags().BoolVar(&dryRun, "dry-run", false, "Simula a execução")
+	organizeCmd.Flags().BoolVar(&noLog, "no-log", false, "Desativa log de ações")
 	organizeCmd.Flags().BoolVarP(&yes, "yes", "y", false, "Executa sem pedir confirmação")
 }

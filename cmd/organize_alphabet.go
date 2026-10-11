@@ -13,14 +13,12 @@ func collectAlphabetMovePlan(targetPath string, path string, info os.FileInfo, p
 		return
 	}
 
-	// Processa apenas arquivos na raiz imediata da busca
 	rel, err := filepath.Rel(targetPath, path)
 	if err != nil || strings.Contains(rel, string(filepath.Separator)) {
 		return
 	}
 
 	folder := organizer.GetAlphabetFolder(info.Name())
-
 	destDir := filepath.Join(targetPath, folder)
 	destPath := filepath.Join(destDir, info.Name())
 
@@ -33,7 +31,7 @@ func collectAlphabetMovePlan(targetPath string, path string, info os.FileInfo, p
 	*plans = append(*plans, FileMovePlan{
 		SourcePath: path,
 		DestPath:   destPath,
-		Extension:  folder, // Reutilizamos o campo para exibir o destino no log
+		Extension:  folder,
 	})
 
 	modTimeStr := info.ModTime().Format("02/01/2006 15:04:05")
