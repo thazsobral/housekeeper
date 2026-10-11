@@ -26,11 +26,10 @@ Aqui está o **Roadmap Atualizado**:
 
 ### Fase 5: Segurança, Logs e Experiência do Usuário (UX) 🏗️ *(Especificado)*
 
-* [ ] **Modo Dry-Run (`--dry-run`):** Simulação detalhada exibindo o que acontecerá sem alterar arquivos.
-* [ ] **Flag `-y` / `--yes`:** Confirmação automática para automação e scripts.
-* [ ] **Controle de Logs (`--no-log`):** Opção para desativar o registro em log do que foi executado.
-* [ ] **Informações de Progresso:** Feedback em tempo real durante operações de varredura/checksum.
+* [x] **Modo Dry-Run (`--dry-run`):** Simulação detalhada exibindo o que acontecerá sem alterar arquivos.
+* [x] **Flag `-y` / `--yes`:** Confirmação automática para automação e scripts.
+* [x] **Controle de Logs (`--no-log`):** Opção para desativar o registro em log do que foi executado.
 
 ### Fase 6: Distribuição Multiplataforma ⏳
 
-* [ ] Compilação de binários otimizados para Windows, Linux e macOS (`GOOS` e `GOARCH`).
+* [x] Compilação de binários otimizados para Windows, Linux e macOS (`GOOS` e `GOARCH`).
