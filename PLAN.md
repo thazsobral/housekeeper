@@ -6,26 +6,23 @@ Aqui está o **Roadmap Atualizado**:
 
 ### Fase 1: Fundação e Ambiente ✅
 
-* [x] Configuração do ambiente Go e inicialização do módulo (`go mod init housekeeper`).
-* [x] Criação do esqueleto base do CLI com Cobra (`hk clean` e `hk organize`).
+* [x] Configuração Go, estrutura modular e Cobra CLI.
 
 ### Fase 2: Varredura e Respeito ao `.hkignore` ✅
 
-* [x] Implementação do leitor de arquivos `.hkignore`.
-* [x] Varredura recursiva de diretórios ignorando padrões indesejados.
+* [x] Leitura de regras com busca hierárquica (subindo até a raiz) e filtragem de arquivos/pastas.
 
 ### Fase 3: Funcionalidades de Limpeza 🔄 *(Fase Atual)*
 
-* [x] Detecção de arquivos vazios (0 bytes) com exibição de tamanho.
-* [x] Parser de tamanhos flexíveis (bytes, KB, MB, GB).
-* [ ] Implementação efetiva da remoção de arquivos e pastas vazias/por tamanho.
-* [ ] Detecção e remoção de arquivos duplicados via Checksum (SHA-256).
+* [x] Parser de tamanhos flexíveis (0b, 3Mb, etc.) com exibição de tamanho e ModTime.
+* [x] Remoção efetiva de arquivos por tamanho e pastas vazias (estratégia bottom-up).
+* [x] Detecção de duplicados via SHA-256 com preservação automática do arquivo mais antigo (ModTime).
 
 ### Fase 4: Funcionalidades de Organização ⏳
 
-* [ ] Organização por extensão de arquivos.
-* [ ] Organização por alfabeto (`--name alphabet`).
-* [ ] Organização por data de criação (`--name createat`).
+* [x] Organização por extensão de arquivos.
+* [x] Organização por alfabeto (`--name alphabet`).
+* [ ] Organização por data de criação (`--date createat`).
 
 ### Fase 5: Segurança, Logs e Experiência do Usuário (UX) 🏗️ *(Especificado)*
 

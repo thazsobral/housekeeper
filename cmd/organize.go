@@ -1,41 +1,28 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
 var (
-	orgFile      bool
-	orgName      string
-	orgExtension bool
-	orgDryRun    bool
-	orgNoSecure  bool
+	orgExt  bool
+	orgName string
+	orgDate string
 )
 
 var organizeCmd = &cobra.Command{
 	Use:   "organize [path]",
-	Short: "Organiza arquivos por extensão, nome ou data de criação.",
+	Short: "Organiza arquivos por extensão, nome ou data.",
 	Args:  cobra.MaximumNArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		targetPath := "."
-		if len(args) > 0 {
-			targetPath = args[0]
-		}
-
-		fmt.Printf("Organizando em: %s\n", targetPath)
-		fmt.Printf("Flags -> file: %v | name: %s | extension: %v | dry-run: %v | no-secure: %v\n",
-			orgFile, orgName, orgExtension, orgDryRun, orgNoSecure)
-	},
+	Run:   runOrganize,
 }
 
 func init() {
 	rootCmd.AddCommand(organizeCmd)
 
-	organizeCmd.Flags().BoolVar(&orgFile, "file", false, "Alvo são os arquivos")
-	organizeCmd.Flags().StringVar(&orgName, "name", "", "Critério por nome (ex: alphabet, createat)")
-	organizeCmd.Flags().BoolVar(&orgExtension, "extension", false, "Organiza por extensão")
-	organizeCmd.Flags().BoolVar(&orgDryRun, "dry-run", false, "Simula a execução")
-	organizeCmd.Flags().BoolVar(&orgNoSecure, "no-secure", false, "Desativa o log de undo")
+	organizeCmd.Flags().BoolVar(&orgExt, "ext", false, "Organiza os arquivos por extensão")
+	organizeCmd.Flags().StringVar(&orgName, "name", "", "Organiza por critério de nome (ex: alphabet)")
+	organizeCmd.Flags().StringVar(&orgDate, "date", "", "Organiza por critério de data (ex: createat)")
+	organizeCmd.Flags().BoolVar(&dryRun, "dry-run", false, "Simula a execução")
+	organizeCmd.Flags().BoolVarP(&yes, "yes", "y", false, "Executa sem pedir confirmação")
 }
