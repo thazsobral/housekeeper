@@ -22,19 +22,15 @@ Aqui está o **Roadmap Atualizado**:
 
 * [x] Organização por extensão de arquivos.
 * [x] Organização por alfabeto (`--name alphabet`).
-* [ ] Organização por data de criação (`--date createat`).
+* [x] Organização por data de criação (`--date createat`).
 
 ### Fase 5: Segurança, Logs e Experiência do Usuário (UX) 🏗️ *(Especificado)*
 
 * [ ] **Modo Dry-Run (`--dry-run`):** Simulação detalhada exibindo o que acontecerá sem alterar arquivos.
 * [ ] **Flag `-y` / `--yes`:** Confirmação automática para automação e scripts.
 * [ ] **Controle de Logs (`--no-log`):** Opção para desativar o registro em log do que foi executado.
-* [ ] **Controle de Undo (`--no-undo`):** Opção para desativar a geração do arquivo de reversão.
-* [ ] **Comando Undo (`hk undo`):** Leitura do arquivo de reversão para restaurar ações passadas.
 * [ ] **Informações de Progresso:** Feedback em tempo real durante operações de varredura/checksum.
 
 ### Fase 6: Distribuição Multiplataforma ⏳
 
 * [ ] Compilação de binários otimizados para Windows, Linux e macOS (`GOOS` e `GOARCH`).
-
----
