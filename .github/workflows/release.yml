@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*' # Aciona automaticamente sempre que você cria uma tag (ex: v0.0.1)
+      - 'v*'
 
 jobs:
   build:
@@ -34,7 +34,7 @@ jobs:
         with:
           go-version: '1.22'
 
-      - name: Compilar binário otimizado
+      - name: Compilar e Compactar Binário
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
@@ -45,9 +45,18 @@ jobs:
             EXT=".exe"
           fi
           
-          BINARY_NAME="housekeeper-${{ matrix.goos }}-${{ matrix.goarch }}$EXT"
-          # -ldflags="-s -w" remove informações de debug para deixar o binário menor
-          go build -ldflags="-s -w" -o dist/$BINARY_NAME main.go
+          BINARY_NAME="housekeeper"
+          ARCHIVE_NAME="housekeeper-${{ github.ref_name }}-${{ matrix.goos }}-${{ matrix.goarch }}"
+          
+          # Compila o binário otimizado
+          go build -ldflags="-s -w" -o $BINARY_NAME$EXT main.go
+          
+          # Compacta de acordo com o sistema operacional
+          if [ "${{ matrix.goos }}" = "windows" ]; then
+            zip "${{ github.workspace }}/dist/${ARCHIVE_NAME}.zip" $BINARY_NAME$EXT
+          else
+            tar -czf "${{ github.workspace }}/dist/${ARCHIVE_NAME}.tar.gz" $BINARY_NAME$EXT
+          fi
 
       - name: Salvar artefato
         uses: actions/upload-artifact@v4
